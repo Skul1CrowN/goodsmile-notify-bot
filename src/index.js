@@ -50,6 +50,10 @@ const scrapeData = async () => {
     return products;
 }
 
+// (async () => {
+//   fs.writeFileSync('./src/data/products.json', JSON.stringify(await scrapeData()));
+// })()
+
 cron.schedule('* * * * *', async () => {
   console.log('Running task every minute');
   let currentData = [];
@@ -82,5 +86,5 @@ Link: ${e.link}
     }
   });
 
-  fs.writeFileSync('.src/data/products.json', JSON.stringify(newData));
+  fs.writeFileSync('./src/data/products.json', JSON.stringify(newData));
 });
