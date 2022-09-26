@@ -1,3 +1,4 @@
 /node_modules/
 /src/test/
+src/data/products.json
 .env
