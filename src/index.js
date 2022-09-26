@@ -65,7 +65,6 @@ cron.schedule('* * * * *', async () => {
   }
 
   const newData = await scrapeData();
-  fs.writeFileSync('./src/test/test6.json', JSON.stringify(newData)); 
   newData.forEach(async(e) => {
     let New = true;
     for(let i=0;i<currentData.length;i++) {
