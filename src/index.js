@@ -54,37 +54,37 @@ const scrapeData = async () => {
 //   fs.writeFileSync('./src/data/products.json', JSON.stringify(await scrapeData()));
 // })()
 
-// cron.schedule('* * * * *', async () => {
-//   console.log('Running task every minute');
-//   let currentData = [];
-//   try {
-//     currentData = fs.readFileSync('./src/data/products.json', 'utf-8');
-//     currentData = JSON.parse(currentData);
-//   } catch(err) {
-//     currentData = [];
-//   }
+cron.schedule('* * * * *', async () => {
+  console.log('Running task every minute');
+  let currentData = [];
+  try {
+    currentData = fs.readFileSync('./src/data/products.json', 'utf-8');
+    currentData = JSON.parse(currentData);
+  } catch(err) {
+    currentData = [];
+  }
 
-//   const newData = await scrapeData();
-//   fs.writeFileSync('./src/test/test6.json', JSON.stringify(newData)); 
-//   newData.forEach(async(e) => {
-//     let New = true;
-//     for(let i=0;i<currentData.length;i++) {
-//       if(currentData[i].name === e.name) {
-//         New = false;
-//         break;
-//       }
-//     }
-//     if (New) {
-//   const msg = `=================================================
-// New Product Announced 📢
-// Date: ${e.date}
-// Name: ${e.name}
-// Link: ${e.link}
-// =================================================`;
+  const newData = await scrapeData();
+  fs.writeFileSync('./src/test/test6.json', JSON.stringify(newData)); 
+  newData.forEach(async(e) => {
+    let New = true;
+    for(let i=0;i<currentData.length;i++) {
+      if(currentData[i].name === e.name) {
+        New = false;
+        break;
+      }
+    }
+    if (New) {
+  const msg = `=================================================
+New Product Announced 📢
+Date: ${e.date}
+Name: ${e.name}
+Link: ${e.link}
+=================================================`;
 
-//     await sendTelegramMessage(msg);
-//     }
-//   });
+    await sendTelegramMessage(msg);
+    }
+  });
 
-//   fs.writeFileSync('./src/data/products.json', JSON.stringify(newData));
-// });
+  fs.writeFileSync('./src/data/products.json', JSON.stringify(newData));
+});
